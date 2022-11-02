@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="weather.css">
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=divice-width, initial-scale=1">
+</head>
+<body>
+	<section style="background-color: ">
+		<br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
+		<div class="parent">
+			<div class="child">
+				<br> <br> <br>
+			<input type="text" id="userinput" placeholder="Enter City Name">
+		<button id="get-btn">Get Weather</button> <br>
+		<img src="" id="icon">
+		<h1 id="city"></h1>
+		<h2 id="description"></h2>
+		<h3 id="temperature"></h3>
+	</div>
+		</div>
+	</section>
+	<script type="text/javascript">
+		var userinput = document.getElementById('userinput');
+		var btn = document.getElementById('get-btn');
+		var icon = document.getElementById('icon');
+		var city = document.getElementById('city');
+		var description = document.getElementById('description');
+		var temperature = document.getElementById('temperature');
+		const API_KEY = "84d47af49eb2419520e6b67a40902abf";
+		const BASE_URL = 'https://api.openweathermap.org/data/2.5/weather';
+		btn.addEventListener('click', function() {
+			fetch(BASE_URL + "?appid=" + API_KEY + "&q=" + userinput.value)
+			.then(response => response.json())
+			.then(data => {
+
+				console.log(data);
+				icon.src = 'http://openweathermap.org/img/w/' + data['weather'][0]["icon"] + '.png';
+				city.innerHTML = data["name"];
+				description.innerHTML = data["weather"][0]["description"];
+				temperature.innerHTML = Math.floor( data["main"]["temp"] -273.15);
+				console.log(data);
+			})
+		});
+	</script>
+</body>
+</html>
